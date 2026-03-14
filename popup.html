@@ -34,6 +34,18 @@
           <span class="toggle-slider"></span>
         </label>
       </div>
+
+      <div class="setting-row">
+        <label>
+          <span>Scroll speed</span>
+          <span class="hint">Delay between scrolls (ms)</span>
+        </label>
+        <div class="delay-inputs">
+          <input type="number" id="delayMin" value="300" min="100" max="5000" step="50" title="Min delay">
+          <span class="delay-sep">–</span>
+          <input type="number" id="delayMax" value="800" min="200" max="10000" step="50" title="Max delay">
+        </div>
+      </div>
     </section>
 
     <section class="actions">
@@ -59,24 +71,54 @@
         <span id="progressText">Preparing...</span>
         <span id="progressCount" class="count">0 items</span>
       </div>
+      <div class="progress-stats">
+        <span id="elapsedTime">0:00</span>
+        <span id="itemsPerSec">0 items/sec</span>
+      </div>
     </section>
 
     <section id="exportSection" class="export-section hidden">
-      <h2>Export <span id="exportCount" class="count"></span></h2>
-      <div class="export-buttons">
-        <button id="btnCSV" class="btn btn-export">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M2 2a1 1 0 011-1h6l4 4v8a1 1 0 01-1 1H3a1 1 0 01-1-1V2z"/>
-          </svg>
-          CSV
-        </button>
-        <button id="btnExcel" class="btn btn-export btn-excel">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M2 2a1 1 0 011-1h6l4 4v8a1 1 0 01-1 1H3a1 1 0 01-1-1V2z"/>
-          </svg>
-          Excel
-        </button>
+      <div class="export-header">
+        <h2>Export <span id="exportCount" class="count"></span></h2>
+        <button id="btnToggleColumns" class="btn-link">Columns ▾</button>
       </div>
+
+      <div id="columnSelector" class="column-selector hidden">
+        <label class="col-check"><input type="checkbox" value="name" checked disabled><span>Business Name</span></label>
+        <label class="col-check"><input type="checkbox" value="phone" checked><span>Phone</span></label>
+        <label class="col-check"><input type="checkbox" value="rating" checked><span>Rating</span></label>
+        <label class="col-check"><input type="checkbox" value="reviewCount" checked><span>Reviews</span></label>
+        <label class="col-check"><input type="checkbox" value="website" checked><span>Website</span></label>
+        <label class="col-check"><input type="checkbox" value="address" checked><span>Address</span></label>
+        <label class="col-check"><input type="checkbox" value="category" checked><span>Category</span></label>
+        <label class="col-check"><input type="checkbox" value="googleMapsUrl" checked><span>Google Maps URL</span></label>
+      </div>
+
+      <div class="export-buttons">
+        <button id="btnCSV" class="btn btn-export">CSV</button>
+        <button id="btnExcel" class="btn btn-export btn-excel">Excel</button>
+        <button id="btnJSON" class="btn btn-export btn-json">JSON</button>
+        <button id="btnCopy" class="btn btn-export btn-copy">Copy</button>
+      </div>
+
+      <div id="statsBar" class="stats-bar hidden">
+        <span id="statsDuration"></span>
+        <span id="statsRate"></span>
+      </div>
+    </section>
+
+    <section id="previewSection" class="preview-section hidden">
+      <div class="preview-header">
+        <h2>Preview</h2>
+        <button id="btnClosePreview" class="btn-link">Hide</button>
+      </div>
+      <div class="preview-table-wrap">
+        <table id="previewTable" class="preview-table">
+          <thead id="previewHead"></thead>
+          <tbody id="previewBody"></tbody>
+        </table>
+      </div>
+      <p class="preview-note" id="previewNote"></p>
     </section>
 
     <footer>

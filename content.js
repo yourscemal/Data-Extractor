@@ -9,6 +9,9 @@
   let shouldStop = false;
   let scrapedData = [];
   let seenUrls = new Set();
+  let scrapeStartTime = 0;
+  let delayMin = 300;
+  let delayMax = 800;
 
   // ---- Utility helpers ----
 
@@ -16,8 +19,8 @@
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  function jitteredDelay(min = 300, max = 800) {
-    return sleep(min + Math.random() * (max - min));
+  function jitteredDelay(min, max) {
+    return sleep((min || delayMin) + Math.random() * ((max || delayMax) - (min || delayMin)));
   }
 
   function queryFirst(parent, selectorOrList) {
@@ -136,7 +139,7 @@
       parseVisibleResults();
 
       // Report progress
-      sendProgress('scraping');
+      sendProgress('scraping', null, null, scrapeStartTime);
 
       if (scrapedData.length === prevCount) {
         noNewResultsCount++;
@@ -218,14 +221,15 @@
         await sleep(1000);
       }
 
-      sendProgress('enriching', i + 1, scrapedData.length);
-      await jitteredDelay(500, 1200);
+      sendProgress('enriching', i + 1, scrapedData.length, scrapeStartTime);
+      await jitteredDelay(delayMin + 200, delayMax + 400);
     }
   }
 
   // ---- Communication with popup / background ----
 
-  function sendProgress(phase, current, total) {
+  function sendProgress(phase, current, total, startTime) {
+    const elapsed = startTime ? Date.now() - startTime : 0;
     chrome.runtime.sendMessage({
       type: 'SCRAPE_PROGRESS',
       data: {
@@ -233,6 +237,7 @@
         count: scrapedData.length,
         current,
         total,
+        elapsed,
       },
     });
   }
@@ -264,9 +269,12 @@
       shouldStop = false;
       scrapedData = [];
       seenUrls = new Set();
+      scrapeStartTime = Date.now();
 
       const maxResults = msg.maxResults || 200;
       const enriched = msg.enriched || false;
+      delayMin = msg.delayMin || 300;
+      delayMax = msg.delayMax || 800;
 
       (async () => {
         try {

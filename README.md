@@ -10,7 +10,12 @@ A Chrome extension that extracts business data from Google Maps search results a
 - Two scraping modes:
   - **Fast mode** — scrolls through the list and captures name, rating, reviews, category, address, and Google Maps URL
   - **Enriched mode** — clicks into each result to also extract phone number, website, and full address
-- Export data as **CSV** or **Excel (.xlsx)**
+- Export data as **CSV**, **Excel (.xlsx)**, or **JSON**
+- **Copy to clipboard** — one-click copy as tab-separated text (paste into spreadsheets)
+- **Data preview table** — see scraped results directly in the popup before exporting
+- **Column selection** — choose which fields to include in your export
+- **Configurable scroll speed** — adjust min/max delay between scrolls
+- **Scrape stats** — elapsed time and items/sec shown during and after scraping
 - Configurable max results (up to 1000)
 - Progress tracking with stop/cancel support
 - Data persists across popup opens
@@ -29,10 +34,12 @@ A Chrome extension that extracts business data from Google Maps search results a
 2. Search for something (e.g. "Restaurants in Texas", "Hotels in New York")
 3. Wait for results to load in the left panel
 4. Click the **Maps Data Extractor** extension icon
-5. (Optional) Adjust **Max results** and toggle **Enriched mode**
+5. (Optional) Adjust **Max results**, toggle **Enriched mode**, and set **Scroll speed**
 6. Click **Start Scraping**
-7. Wait for scraping to complete — progress is shown in the popup
-8. Click **CSV** or **Excel** to export your data
+7. Wait for scraping to complete — progress, elapsed time, and items/sec are shown
+8. Review data in the **Preview table**
+9. (Optional) Click **Columns** to select which fields to include
+10. Click **CSV**, **Excel**, **JSON**, or **Copy** to export
 
 ## Exported Fields
 
@@ -58,4 +65,4 @@ A Chrome extension that extracts business data from Google Maps search results a
 
 ## License
 
-MIT License — see [LICENSE](LICENSE). Credit to **Cemal Shabinas** must be included in all copies or substantial portions of this software.
+MIT License — see [LICENSE](LICENSE). Credit to **Cemal** must be included in all copies or substantial portions of this software.
