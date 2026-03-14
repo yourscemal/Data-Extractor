@@ -2,7 +2,7 @@
 
 A Chrome extension that extracts business data from Google Maps search results and exports it as CSV or Excel.
 
-**Created by Cemal Shabinas** — credit must be given in any use, distribution, or derivative work.
+**Created by Cemal** — credit must be given in any use, distribution, or derivative work.
 
 ## Features
 
