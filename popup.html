@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maps Data Extractor</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Maps Data Extractor</h1>
+      <p class="subtitle">Extract business data from Google Maps</p>
+    </header>
+
+    <div id="errorBanner" class="error-banner hidden">
+      <span id="errorText"></span>
+      <button id="errorClose" class="error-close">&times;</button>
+    </div>
+
+    <section class="controls">
+      <div class="setting-row">
+        <label for="maxResults">Max results</label>
+        <input type="number" id="maxResults" value="200" min="1" max="1000" step="10">
+      </div>
+
+      <div class="setting-row">
+        <label for="enrichedMode">
+          <span>Enriched mode</span>
+          <span class="hint">Slower — clicks each result for phone/website/address</span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="enrichedMode">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button id="btnStart" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M4 2l10 6-10 6V2z"/>
+        </svg>
+        Start Scraping
+      </button>
+      <button id="btnStop" class="btn btn-danger hidden">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <rect x="3" y="3" width="10" height="10" rx="1"/>
+        </svg>
+        Stop
+      </button>
+    </section>
+
+    <section id="progressSection" class="progress-section hidden">
+      <div class="progress-bar-track">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <div class="progress-info">
+        <span id="progressText">Preparing...</span>
+        <span id="progressCount" class="count">0 items</span>
+      </div>
+    </section>
+
+    <section id="exportSection" class="export-section hidden">
+      <h2>Export <span id="exportCount" class="count"></span></h2>
+      <div class="export-buttons">
+        <button id="btnCSV" class="btn btn-export">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M2 2a1 1 0 011-1h6l4 4v8a1 1 0 01-1 1H3a1 1 0 01-1-1V2z"/>
+          </svg>
+          CSV
+        </button>
+        <button id="btnExcel" class="btn btn-export btn-excel">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M2 2a1 1 0 011-1h6l4 4v8a1 1 0 01-1 1H3a1 1 0 01-1-1V2z"/>
+          </svg>
+          Excel
+        </button>
+      </div>
+    </section>
+
+    <footer>
+      <p id="statusText" class="status">Ready</p>
+    </footer>
+  </div>
+
+  <script src="libs/xlsx.mini.min.js"></script>
+  <script src="export.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
